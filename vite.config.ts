@@ -25,6 +25,11 @@ export default defineConfig({
       $: resolve(__dirname, "./src")
     },
   },
+  server: {
+    watch: {
+      ignored: ["**/standalone-apps/**", "**/target/**"],
+    },
+  },
   build: {
     rollupOptions: {
       output: {
