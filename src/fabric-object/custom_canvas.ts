@@ -144,10 +144,49 @@ export class CustomCanvas extends fabric.Canvas {
     };
     container.addEventListener("touchend", stopTouch);
     container.addEventListener("touchcancel", stopTouch);
+
+    // Desktop panning support (Middle mouse drag or Alt+Drag)
+    let isPanning = false;
+    let panStartX = 0;
+    let panStartY = 0;
+
+    const getScrollWrapper = () =>
+      this.getElement().closest(".workbench-stage") ||
+      this.getElement().closest(".canvas-wrapper");
+
+    container.addEventListener("mousedown", (e: MouseEvent) => {
+      if (e.button === 1 || (e.button === 0 && e.altKey)) {
+        isPanning = true;
+        panStartX = e.clientX;
+        panStartY = e.clientY;
+        container.style.cursor = "grabbing";
+        e.preventDefault();
+      }
+    });
+
+    window.addEventListener("mousemove", (e: MouseEvent) => {
+      if (!isPanning) return;
+      const dx = e.clientX - panStartX;
+      const dy = e.clientY - panStartY;
+      const wrapper = getScrollWrapper();
+      if (wrapper) {
+        wrapper.scrollLeft -= dx;
+        wrapper.scrollTop -= dy;
+      }
+      panStartX = e.clientX;
+      panStartY = e.clientY;
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (isPanning) {
+        isPanning = false;
+        container.style.cursor = "";
+      }
+    });
   }
 
   public virtualZoom(newZoom: number) {
-    this.virtualZoomRatio = Math.min(Math.max(0.25, newZoom), 4);
+    this.virtualZoomRatio = Math.min(Math.max(0.2, newZoom), 10);
     this.setDimensions(
       {
         width: this.virtualZoomRatio * this.getWidth() + "px",
@@ -161,11 +200,29 @@ export class CustomCanvas extends fabric.Canvas {
   }
 
   public virtualZoomIn() {
-    this.virtualZoom(this.virtualZoomRatio * 1.05);
+    this.virtualZoom(this.virtualZoomRatio * 1.15);
   }
 
   public virtualZoomOut() {
-    this.virtualZoom(this.virtualZoomRatio * 0.95);
+    this.virtualZoom(this.virtualZoomRatio * 0.85);
+  }
+
+  public fitToContainer(containerWidth: number, containerHeight: number) {
+    const labelW = this.getWidth();
+    const labelH = this.getHeight();
+    if (!labelW || !labelH || !containerWidth || !containerHeight) return;
+
+    // Leave comfortable margins around the label
+    const availableW = Math.max(containerWidth - 64, 80);
+    const availableH = Math.max(containerHeight - 64, 80);
+
+    const scaleX = availableW / labelW;
+    const scaleY = availableH / labelH;
+    const fitZoom = Math.min(scaleX, scaleY);
+
+    if (isFinite(fitZoom) && fitZoom > 0) {
+      this.virtualZoom(fitZoom);
+    }
   }
 
   public getVirtualZoom(): number {

@@ -20,7 +20,7 @@
 </script>
 
 <div class="page-wrapper d-flex flex-column min-vh-100">
-  <div class="container my-2 flex-grow-1">
+  <div class="{isStandalone ? 'container-fluid px-3 px-xl-4' : 'container'} my-2 flex-grow-1 d-flex flex-column">
     <div class="row align-items-center mb-3">
       <div class="col">
         <h1 class="title">

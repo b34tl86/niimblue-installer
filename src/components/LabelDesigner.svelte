@@ -52,8 +52,14 @@
   let windowWidth = $state<number>(0);
   let undoState = $state<UndoState>({ undoDisabled: false, redoDisabled: false });
   let zoomText = $state<string>("100%");
+  let workbenchStageEl = $state<HTMLDivElement>();
 
   const undo = new UndoRedo();
+
+  const fitWorkbench = () => {
+    if (!workbenchStageEl || !fabricCanvas) return;
+    fabricCanvas.fitToContainer(workbenchStageEl.clientWidth, workbenchStageEl.clientHeight);
+  };
 
   const discardSelection = () => {
     fabricCanvas!.discardActiveObject();
@@ -347,6 +353,10 @@
 
     await loadDefaultLabel();
 
+    if (workbenchStageEl && fabricCanvas && labelProps.size.width < 450) {
+      fitWorkbench();
+    }
+
     window.addEventListener("hashchange", loadLabelFromUrl);
 
     undo.push(fabricCanvas, labelProps);
@@ -473,8 +483,19 @@
 <svelte:window bind:innerWidth={windowWidth} onkeydown={onKeyDown} onpaste={onPaste} />
 
 <div class="image-editor">
-  <div class="row mb-3">
-    <div class="col d-flex justify-content-center">
+  <div class="workbench-container mb-3">
+    <div class="workbench-header d-flex justify-content-between align-items-center mb-1 px-1">
+      <div class="dimension-badge d-flex align-items-center gap-1 text-secondary fs-08 font-monospace">
+        <MdIcon icon="straighten" />
+        <span>{labelProps.size.width} × {labelProps.size.height} px</span>
+        <span class="text-body-tertiary">({Math.round(labelProps.size.width / 8)} × {Math.round(labelProps.size.height / 8)} mm)</span>
+      </div>
+      <div class="workbench-feed-tag text-secondary fs-08 font-monospace">
+        <span class="text-danger">●</span> Feed: {labelProps.printDirection}
+      </div>
+    </div>
+
+    <div class="workbench-stage" bind:this={workbenchStageEl}>
       <div class="canvas-wrapper print-start-{labelProps.printDirection}">
         <canvas bind:this={htmlCanvas}></canvas>
       </div>
@@ -519,12 +540,36 @@
           <MdIcon icon="grid_on" />
         </button>
 
-        <button
-          class="btn btn-sm btn-secondary"
-          onclick={() => fabricCanvas?.resetVirtualZoom()}
-          title="Reset zoom">
-          {zoomText}
-        </button>
+        <!-- Zoom Suite -->
+        <div class="btn-group btn-group-sm">
+          <button
+            class="btn btn-secondary"
+            onclick={() => fabricCanvas?.virtualZoomOut()}
+            title={$tr("editor.zoom.out")}>
+            <MdIcon icon="zoom_out" />
+          </button>
+
+          <button
+            class="btn btn-secondary px-2 font-monospace"
+            onclick={() => fabricCanvas?.resetVirtualZoom()}
+            title={$tr("editor.zoom.reset")}>
+            {zoomText}
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            onclick={() => fabricCanvas?.virtualZoomIn()}
+            title={$tr("editor.zoom.in")}>
+            <MdIcon icon="zoom_in" />
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            onclick={fitWorkbench}
+            title={$tr("editor.zoom.fit")}>
+            <MdIcon icon="fit_screen" />
+          </button>
+        </div>
 
         <CsvControl bind:enabled={csvEnabled} onPlaceholderPicked={onCsvPlaceholderPicked} />
 
@@ -603,18 +648,54 @@
 </div>
 
 <style>
-  .canvas-wrapper {
-    border: 1px solid rgba(0, 0, 0, 0.4);
-    background-color: rgba(60, 55, 63, 0.5);
-    max-width: 100%;
-    max-height: 70vh;
-    overflow: auto;
+  .workbench-container {
+    width: 100%;
   }
+
+  .workbench-header {
+    width: 100%;
+    user-select: none;
+  }
+
+  .workbench-stage {
+    width: 100%;
+    min-height: 360px;
+    height: 52vh;
+    max-height: 82vh;
+    resize: vertical;
+    overflow: auto;
+    position: relative;
+    background-color: #14171d;
+    background-image: radial-gradient(circle, #272e3b 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 1px solid #28303e;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.15s ease;
+  }
+
+  .workbench-stage:focus-within,
+  .workbench-stage:hover {
+    border-color: #384357;
+  }
+
+  .canvas-wrapper {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    background: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+  }
+
   .canvas-wrapper.print-start-left {
-    border-left: 2px solid #ff4646;
+    border-left: 3px solid #ff4646;
   }
   .canvas-wrapper.print-start-top {
-    border-top: 2px solid #ff4646;
+    border-top: 3px solid #ff4646;
   }
   .canvas-wrapper canvas {
     image-rendering: pixelated;
