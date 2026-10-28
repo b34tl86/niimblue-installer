@@ -31,6 +31,7 @@
   let connectionType = $state<ConnectionType>("bluetooth");
   let featureSupport = $state<AvailableTransports>({ webBluetooth: false, webSerial: false, capacitorBle: false });
   let verboseInfoShow = $state<boolean>(false);
+  let bluetoothHelpShow = $state<boolean>(false);
 
   const percentage = (cur?: number, total?: number) => {
     if (cur === undefined || total === undefined) {
@@ -41,6 +42,11 @@
   };
 
   const onConnectClicked = async () => {
+    if (connectionType === "bluetooth" && !featureSupport.webBluetooth && !featureSupport.capacitorBle) {
+      bluetoothHelpShow = true;
+      return;
+    }
+
     initClient(connectionType);
     connectionState.set("connecting");
 
@@ -266,15 +272,17 @@
       ></MdIcon>
     </span>
   {:else}
-    {#if featureSupport.webBluetooth}
-      <button
-        disabled={$connectionState === "connecting"}
-        class="btn text-nowrap {connectionType === 'bluetooth' ? 'btn-light' : 'btn-outline-secondary'}"
-        onclick={() => switchConnectionType("bluetooth")}>
-        <MdIcon icon="bluetooth" />
-        {$tr("connector.bluetooth")}
-      </button>
-    {/if}
+    <button
+      disabled={$connectionState === "connecting"}
+      class="btn text-nowrap {connectionType === 'bluetooth' ? 'btn-light' : 'btn-outline-secondary'}"
+      onclick={() => switchConnectionType("bluetooth")}
+      title={featureSupport.webBluetooth ? $tr("connector.bluetooth") : $tr("connector.bluetooth.unsupported")}>
+      <MdIcon icon="bluetooth" />
+      {$tr("connector.bluetooth")}
+      {#if !featureSupport.webBluetooth && !featureSupport.capacitorBle}
+        <span class="badge bg-warning text-dark ms-1" style="font-size: 0.65em;">!</span>
+      {/if}
+    </button>
     {#if featureSupport.webSerial}
       <button
         disabled={$connectionState === "connecting"}
@@ -289,7 +297,7 @@
         disabled={$connectionState === "connecting"}
         class="btn text-nowrap {connectionType === 'capacitor-ble' ? 'btn-light' : 'btn-outline-secondary'}"
         onclick={() => switchConnectionType((connectionType = "capacitor-ble"))}>
-        <MdIcon icon="usb" />
+        <MdIcon icon="bluetooth" />
         Capacitor BLE
       </button>
     {/if}
@@ -298,9 +306,9 @@
   {#if $connectionState !== "connected"}
     <button
       class="btn btn-primary"
-      disabled={$connectionState === "connecting" ||
-        (!featureSupport.capacitorBle && !featureSupport.webBluetooth && !featureSupport.webSerial)}
-      onclick={onConnectClicked}>
+      disabled={$connectionState === "connecting"}
+      onclick={onConnectClicked}
+      title="Connect to printer">
       <MdIcon icon="power" />
     </button>
   {/if}
@@ -313,6 +321,47 @@
 
   {#if verboseInfoShow}
     <PrinterVerboseInfo bind:show={verboseInfoShow} />
+  {/if}
+
+  {#if bluetoothHelpShow}
+    <div class="modal d-block" tabindex="-1" style="background: rgba(0,0,0,0.65); z-index: 1055;">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light border-secondary">
+          <div class="modal-header border-secondary">
+            <h5 class="modal-title d-flex align-items-center gap-2">
+              <MdIcon icon="bluetooth" /> {$tr("connector.bluetooth.help")}
+            </h5>
+            <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick={() => (bluetoothHelpShow = false)}></button>
+          </div>
+          <div class="modal-body text-start">
+            <div class="alert alert-warning mb-3">
+              <strong>Web Bluetooth is not detected in your current environment.</strong>
+            </div>
+            <p class="mb-2"><strong>How to connect to your NIIMBOT printer:</strong></p>
+            <ul class="mb-3">
+              <li><strong>Recommended Browsers:</strong> Open NiimBlue in Google Chrome, Microsoft Edge, or Opera on Windows, macOS, Android, or Linux.</li>
+              <li><strong>Windows Settings:</strong> Ensure Bluetooth is toggled <strong>On</strong> in Windows Settings and your printer is powered on with the blue LED blinking.</li>
+              <li><strong>Web Bluetooth Flag:</strong> If needed in Chrome or Edge, navigate to <code>chrome://flags/#enable-web-bluetooth</code> and set it to Enabled.</li>
+              <li><strong>Windows Virtual COM Port:</strong> After pairing your printer in Windows Bluetooth Settings, you can connect wirelessly through <strong>Serial (USB)</strong> by choosing the printer's Bluetooth COM port!</li>
+            </ul>
+          </div>
+          <div class="modal-footer border-secondary">
+            {#if featureSupport.webSerial}
+              <button
+                class="btn btn-primary"
+                onclick={() => {
+                  switchConnectionType("serial");
+                  bluetoothHelpShow = false;
+                  onConnectClicked();
+                }}>
+                <MdIcon icon="usb" /> Try Serial / Bluetooth COM Port
+              </button>
+            {/if}
+            <button type="button" class="btn btn-secondary" onclick={() => (bluetoothHelpShow = false)}>Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   {/if}
 </div>
 

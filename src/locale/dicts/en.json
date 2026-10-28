@@ -5,6 +5,8 @@
     "browser_warning.lines.second": "Anyway, you still can draw labels.",
     "browser_warning.ios_safari": "Bluetooth printing in Safari on iPhone or iPad can be achieved using an extension, such as beacio.",
     "connector.bluetooth": "Bluetooth",
+    "connector.bluetooth.unsupported": "Bluetooth is not supported in this browser/environment",
+    "connector.bluetooth.help": "Bluetooth Connection Guide",
     "connector.disconnect.heartbeat": "Disconnected (printer does not respond)",
     "connector.serial": "Serial (USB)",
     "connector.device_version": "Device version",
