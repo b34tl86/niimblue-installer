@@ -1,0 +1,54 @@
+{
+  "name": "niimblue-desktop",
+  "productName": "NiimBlue",
+  "private": true,
+  "version": "2026.9.0",
+  "description": "NiimBlue desktop app",
+  "main": "main.cjs",
+  "scripts": {
+    "build-www": "cd ../.. && vite build --outDir ./standalone-apps/electron/www --emptyOutDir",
+    "start": "electron .",
+    "dist": "npm run build-www && electron-builder --publish never"
+  },
+  "build": {
+    "appId": "ru.mmote.niimblue",
+    "productName": "NiimBlue",
+    "files": [
+      "main.cjs",
+      "www/**"
+    ],
+    "icon": "www/favicon-512.png",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "artifactName": "NiimBlue-Setup-${version}.exe",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "target": {
+        "target": "dmg",
+        "arch": [
+          "universal"
+        ]
+      },
+      "category": "public.app-category.productivity",
+      "identity": "-",
+      "extendInfo": {
+        "NSBluetoothAlwaysUsageDescription": "NiimBlue uses Bluetooth to connect to your label printer."
+      }
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.1.0",
+    "electron-builder": "^26.18.0"
+  },
+  "allowScripts": {
+    "electron@45.1.0": true,
+    "electron-winstaller@5.4.0": true
+  }
+}

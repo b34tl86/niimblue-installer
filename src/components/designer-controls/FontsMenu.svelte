@@ -9,7 +9,7 @@
 
   let show = $state<boolean>(false);
   let usedSpace = $state<number>(0);
-  let selectExt = $state<"ttf" | "woff2">("ttf");
+  let selectExt = $state<"ttf" | "otf" | "woff" | "woff2">("ttf");
   let overrideFamily = $state<string>("");
 
   const calcUsedSpace = () => {
@@ -80,6 +80,8 @@
 
       <select class="form-select" bind:value={selectExt}>
         <option value="ttf">ttf</option>
+        <option value="otf">otf</option>
+        <option value="woff">woff</option>
         <option value="woff2">woff2</option>
       </select>
 
