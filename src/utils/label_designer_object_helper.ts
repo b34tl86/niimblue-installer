@@ -143,7 +143,7 @@ export class LabelDesignerObjectHelper {
       ],
       {
         ...OBJECT_DEFAULTS_VECTOR,
-        strokeDashArray: [1, 5],
+        strokeDashArray: [0, 6],
         strokeLineCap: "round",
       },
     );

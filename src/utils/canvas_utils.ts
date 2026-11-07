@@ -25,7 +25,45 @@ export class CanvasUtils {
     }
   }
 
+  static lineLength(line: fabric.Polyline): number {
+    const xs = line.points.map((p) => p.x);
+    return Math.round((Math.max(...xs) - Math.min(...xs)) * (line.scaleX ?? 1));
+  }
+
+  static isWavy(line: fabric.Polyline): boolean {
+    return line.points.length > 2;
+  }
+
+  /** Rebuild a horizontal line as straight or wavy. Wave count is whole so both ends sit on the center line. */
+  static setLineShape(line: fabric.Polyline, length: number, wavy: boolean) {
+    const wavelength = 16;
+    const amplitude = 4;
+    const steps = 8; // points per wave
+    length = Math.max(wavelength, Math.round(length));
+
+    let points = [new fabric.Point(0, 0), new fabric.Point(length, 0)];
+    if (wavy) {
+      const n = Math.max(1, Math.round(length / wavelength)) * steps;
+      points = [];
+      for (let i = 0; i <= n; i++) {
+        points.push(new fabric.Point((i * length) / n, -amplitude * Math.sin((2 * Math.PI * i) / steps)));
+      }
+    }
+
+    const left = line.left;
+    const top = line.top;
+    line.set({ points, scaleX: 1, scaleY: 1, strokeLineJoin: "round" });
+    line.setBoundingBox();
+    line.set({ left: Math.round(left), top: Math.round(top) });
+    line.setCoords();
+  }
+
   static fixFabricObjectScale(obj: fabric.FabricObject) {
+    if (obj instanceof fabric.Polyline && CanvasUtils.isWavy(obj)) {
+      CanvasUtils.setLineShape(obj, CanvasUtils.lineLength(obj), true);
+      return;
+    }
+
     const isNotScalable = obj instanceof Barcode || obj instanceof fabric.Rect || obj instanceof QRCode || obj instanceof ArUcoMarker;
 
     if (isNotScalable) {

@@ -1,3 +1,9 @@
+# 2026.11.1
+
+* Lines: straight/wavy shape and length setting; stretching a wavy line adds waves.
+* Lines, rectangles, circles: solid / dashed / dotted stroke style.
+* Windows: portable .exe (no install) alongside the installer.
+
 # 2026.11.0
 
 * Add wavy line (double wave) and dotted line objects.
