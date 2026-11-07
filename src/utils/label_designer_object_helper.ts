@@ -116,6 +116,42 @@ export class LabelDesignerObjectHelper {
     return obj;
   }
 
+  /** Two parallel sine waves (decorative divider) */
+  static addWavyLine(canvas: fabric.Canvas): fabric.Path {
+    const width = OBJECT_SIZE_DEFAULTS.width * 1.5;
+    const pointCount = 80;
+    const waveCount = 5;
+    const amplitude = 3;
+    const gap = 6;
+    const wave = (offsetY: number) =>
+      Array.from({ length: pointCount + 1 }, (_, i) => {
+        const x = (width * i) / pointCount;
+        const y = offsetY + amplitude + Math.sin((i / pointCount) * Math.PI * 2 * waveCount) * amplitude;
+        return `${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
+      }).join(" ");
+    const obj = new fabric.Path(`${wave(0)} ${wave(gap)}`, { ...OBJECT_DEFAULTS_VECTOR, strokeWidth: 2 });
+    canvas.add(obj);
+    canvas.centerObjectV(obj);
+    return obj;
+  }
+
+  static addDottedLine(canvas: fabric.Canvas): fabric.Polyline {
+    const obj = new fabric.Polyline(
+      [
+        { x: OBJECT_DEFAULTS.left, y: OBJECT_DEFAULTS.top },
+        { x: OBJECT_DEFAULTS.left + OBJECT_SIZE_DEFAULTS.width, y: OBJECT_DEFAULTS.top },
+      ],
+      {
+        ...OBJECT_DEFAULTS_VECTOR,
+        strokeDashArray: [1, 5],
+        strokeLineCap: "round",
+      },
+    );
+    canvas.add(obj);
+    canvas.centerObjectV(obj);
+    return obj;
+  }
+
   static addCircle(canvas: fabric.Canvas): fabric.Circle {
     const obj = new fabric.Circle({
       ...OBJECT_DEFAULTS_VECTOR,
@@ -172,6 +208,10 @@ export class LabelDesignerObjectHelper {
         return this.addText(canvas);
       case "line":
         return this.addHLine(canvas);
+      case "wavy_line":
+        return this.addWavyLine(canvas);
+      case "dotted_line":
+        return this.addDottedLine(canvas);
       case "circle":
         return this.addCircle(canvas);
       case "rectangle":

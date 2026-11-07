@@ -19,6 +19,8 @@
     "editor.objectpicker.circle": "Daire",
     "editor.objectpicker.image": "Resim",
     "editor.objectpicker.line": "Çizgi",
+    "editor.objectpicker.dotted_line": "Noktalı çizgi",
+    "editor.objectpicker.wavy_line": "Dalgalı çizgi",
     "editor.objectpicker.qrcode": "QR Kod",
     "editor.objectpicker.rectangle": "Dikdörtgen",
     "editor.objectpicker.text": "Metin",

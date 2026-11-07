@@ -32,6 +32,14 @@
         <MdIcon icon="remove" />
         {$tr("editor.objectpicker.line")}
       </button>
+      <button class="btn me-1" onclick={() => onSubmit("wavy_line")}>
+        <MdIcon icon="waves" />
+        {$tr("editor.objectpicker.wavy_line")}
+      </button>
+      <button class="btn me-1" onclick={() => onSubmit("dotted_line")}>
+        <MdIcon icon="more_horiz" />
+        {$tr("editor.objectpicker.dotted_line")}
+      </button>
       <button class="btn me-1" onclick={() => onSubmit("rectangle")}>
         <MdIcon icon="crop_square" />
         {$tr("editor.objectpicker.rectangle")}

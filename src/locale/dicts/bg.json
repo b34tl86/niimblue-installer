@@ -29,6 +29,8 @@
     "editor.objectpicker.circle": "Кръг",
     "editor.objectpicker.image": "Изображение",
     "editor.objectpicker.line": "Ред",
+    "editor.objectpicker.dotted_line": "Точкова линия",
+    "editor.objectpicker.wavy_line": "Вълнообразна линия",
     "editor.objectpicker.qrcode": "Код на QR",
     "editor.objectpicker.rectangle": "Правоъгълник",
     "editor.objectpicker.text": "Текст",

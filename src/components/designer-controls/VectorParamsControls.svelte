@@ -53,7 +53,7 @@
   </div>
 {/if}
 
-{#if selectedObject instanceof fabric.Rect || selectedObject instanceof fabric.Circle || selectedObject instanceof fabric.Line || selectedObject instanceof fabric.Polyline}
+{#if selectedObject instanceof fabric.Rect || selectedObject instanceof fabric.Circle || selectedObject instanceof fabric.Line || selectedObject instanceof fabric.Polyline || selectedObject instanceof fabric.Path}
   <div class="input-group flex-nowrap input-group-sm">
     <span class="input-group-text" title={$tr("params.vector.stroke_width")}>
       <MdIcon icon="line_weight" />
@@ -67,8 +67,8 @@
   </div>
 {/if}
 
-{#if selectedObject instanceof fabric.Rect || selectedObject instanceof fabric.Circle || selectedObject instanceof fabric.Polyline}
-  {#if !(selectedObject instanceof fabric.Polyline)}
+{#if selectedObject instanceof fabric.Rect || selectedObject instanceof fabric.Circle || selectedObject instanceof fabric.Polyline || selectedObject instanceof fabric.Path}
+  {#if !(selectedObject instanceof fabric.Polyline || selectedObject instanceof fabric.Path)}
     <div class="input-group input-group-sm flex-nowrap fill">
       <span class="input-group-text" title={$tr("params.vector.fill")}>
         <MdIcon icon="format_color_fill" />

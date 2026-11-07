@@ -16,6 +16,8 @@
     "editor.objectpicker.circle": "Kreis",
     "editor.objectpicker.image": "Grafik",
     "editor.objectpicker.line": "Linie",
+    "editor.objectpicker.dotted_line": "Gepunktete Linie",
+    "editor.objectpicker.wavy_line": "Wellenlinie",
     "editor.objectpicker.qrcode": "QR-Code",
     "editor.objectpicker.rectangle": "Rechteck",
     "editor.objectpicker.text": "Text",

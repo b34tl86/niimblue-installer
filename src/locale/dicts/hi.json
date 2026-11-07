@@ -26,6 +26,8 @@
     "editor.objectpicker.circle": "वृत्त",
     "editor.objectpicker.image": "इमेज",
     "editor.objectpicker.line": "लाइन",
+    "editor.objectpicker.dotted_line": "बिंदीदार रेखा",
+    "editor.objectpicker.wavy_line": "लहरदार रेखा",
     "editor.objectpicker.qrcode": "क्यूआर कोड",
     "editor.objectpicker.rectangle": "आयत (Rectangle)",
     "editor.objectpicker.text": "टेक्स्ट",

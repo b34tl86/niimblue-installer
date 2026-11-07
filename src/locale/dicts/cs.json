@@ -16,6 +16,8 @@
     "editor.objectpicker.circle": "Kruh",
     "editor.objectpicker.image": "Obrázek",
     "editor.objectpicker.line": "Čára",
+    "editor.objectpicker.dotted_line": "Tečkovaná čára",
+    "editor.objectpicker.wavy_line": "Vlnitá čára",
     "editor.objectpicker.qrcode": "QR Kód",
     "editor.objectpicker.rectangle": "Obdélník",
     "editor.objectpicker.text": "Text",

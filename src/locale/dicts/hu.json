@@ -19,6 +19,8 @@
     "editor.objectpicker.circle": "Kör",
     "editor.objectpicker.image": "Kép",
     "editor.objectpicker.line": "Vonal",
+    "editor.objectpicker.dotted_line": "Pontozott vonal",
+    "editor.objectpicker.wavy_line": "Hullámos vonal",
     "editor.objectpicker.qrcode": "QR-kód",
     "editor.objectpicker.rectangle": "Négyzet",
     "editor.objectpicker.text": "Szöveg",

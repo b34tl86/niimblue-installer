@@ -17,6 +17,8 @@
     "editor.objectpicker.circle": "Krug",
     "editor.objectpicker.image": "Slika",
     "editor.objectpicker.line": "Linija",
+    "editor.objectpicker.dotted_line": "Točkasta linija",
+    "editor.objectpicker.wavy_line": "Valovita linija",
     "editor.objectpicker.qrcode": "QR kod",
     "editor.objectpicker.rectangle": "Pravokutnik",
     "editor.objectpicker.text": "Tekst",

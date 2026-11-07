@@ -30,6 +30,8 @@
     "editor.objectpicker.circle": "Cirkel",
     "editor.objectpicker.image": "Bild",
     "editor.objectpicker.line": "Linje",
+    "editor.objectpicker.dotted_line": "Prickad linje",
+    "editor.objectpicker.wavy_line": "Vågig linje",
     "editor.objectpicker.qrcode": "QR-kod",
     "editor.objectpicker.rectangle": "Rektangel",
     "editor.objectpicker.text": "Text",

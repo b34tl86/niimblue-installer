@@ -26,6 +26,8 @@
     "editor.objectpicker.circle": "वर्तुळ",
     "editor.objectpicker.image": "प्रतिमा",
     "editor.objectpicker.line": "रेषा",
+    "editor.objectpicker.dotted_line": "बिंदूंची रेषा",
+    "editor.objectpicker.wavy_line": "लहरी रेषा",
     "editor.objectpicker.qrcode": "QR कोड",
     "editor.objectpicker.rectangle": "आयत",
     "editor.objectpicker.text": "मजकूर",

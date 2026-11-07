@@ -48,6 +48,8 @@
     "editor.objectpicker.circle": "Круг",
     "editor.objectpicker.image": "Картинка",
     "editor.objectpicker.line": "Линия",
+    "editor.objectpicker.dotted_line": "Пунктирная линия",
+    "editor.objectpicker.wavy_line": "Волнистая линия",
     "editor.objectpicker.qrcode": "QR Код",
     "editor.objectpicker.rectangle": "Прямоугольник",
     "editor.objectpicker.text": "Текст",

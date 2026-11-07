@@ -1,3 +1,8 @@
+# 2026.11.0
+
+* Add wavy line (double wave) and dotted line objects.
+* Stroke width/color controls now work on path objects.
+
 # 2026.9.0
 
 * Add changelog (starts from commit 48ce74).

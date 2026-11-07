@@ -19,6 +19,8 @@
     "editor.objectpicker.circle": "دائرة",
     "editor.objectpicker.image": "صورة",
     "editor.objectpicker.line": "خط",
+    "editor.objectpicker.dotted_line": "خط منقط",
+    "editor.objectpicker.wavy_line": "خط متموج",
     "editor.objectpicker.qrcode": "QR Code",
     "editor.objectpicker.rectangle": "مستطيل",
     "editor.objectpicker.text": "نص",

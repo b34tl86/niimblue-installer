@@ -16,6 +16,8 @@
     "editor.objectpicker.circle": "Okrąg",
     "editor.objectpicker.image": "Obraz",
     "editor.objectpicker.line": "Linia",
+    "editor.objectpicker.dotted_line": "Linia kropkowana",
+    "editor.objectpicker.wavy_line": "Linia falista",
     "editor.objectpicker.qrcode": "Kod QR",
     "editor.objectpicker.rectangle": "Prostokąt",
     "editor.objectpicker.text": "Tekst",

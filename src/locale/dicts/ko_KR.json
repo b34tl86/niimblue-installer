@@ -19,6 +19,8 @@
     "editor.objectpicker.circle": "원",
     "editor.objectpicker.image": "이미지",
     "editor.objectpicker.line": "선",
+    "editor.objectpicker.dotted_line": "점선",
+    "editor.objectpicker.wavy_line": "물결선",
     "editor.objectpicker.qrcode": "QR 코드",
     "editor.objectpicker.rectangle": "사각형",
     "editor.objectpicker.text": "텍스트",

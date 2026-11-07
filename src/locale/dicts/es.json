@@ -20,6 +20,8 @@
     "editor.objectpicker.circle": "Círculo",
     "editor.objectpicker.image": "Imagen",
     "editor.objectpicker.line": "Línea",
+    "editor.objectpicker.dotted_line": "Línea punteada",
+    "editor.objectpicker.wavy_line": "Línea ondulada",
     "editor.objectpicker.qrcode": "Código QR",
     "editor.objectpicker.rectangle": "Rectángulo",
     "editor.objectpicker.text": "Texto",

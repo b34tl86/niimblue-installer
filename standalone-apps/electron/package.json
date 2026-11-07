@@ -2,7 +2,7 @@
   "name": "niimblue-desktop",
   "productName": "NiimBlue",
   "private": true,
-  "version": "2026.9.0",
+  "version": "2026.11.0",
   "description": "NiimBlue desktop app",
   "main": "main.cjs",
   "scripts": {

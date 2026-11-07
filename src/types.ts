@@ -6,7 +6,18 @@ export type ConnectionState = "connecting" | "connected" | "disconnected";
 export type ConnectionType = "bluetooth" | "serial" | "capacitor-ble";
 
 export type LabelUnit = "mm" | "px";
-export type OjectType = "text" | "rectangle" | "line" | "circle" | "image" | "qrcode" | "barcode" | "aruco" | "pdf";
+export type OjectType =
+  | "text"
+  | "rectangle"
+  | "line"
+  | "wavy_line"
+  | "dotted_line"
+  | "circle"
+  | "image"
+  | "qrcode"
+  | "barcode"
+  | "aruco"
+  | "pdf";
 export type MoveDirection = "up" | "down" | "left" | "right";
 export type LabelShape = "rect" | "rounded_rect" | "circle";
 export type LabelSplit = "none" | "vertical" | "horizontal";

@@ -16,6 +16,8 @@
     "editor.objectpicker.circle": "圆形",
     "editor.objectpicker.image": "图片",
     "editor.objectpicker.line": "线条",
+    "editor.objectpicker.dotted_line": "点线",
+    "editor.objectpicker.wavy_line": "波浪线",
     "editor.objectpicker.qrcode": "二维码",
     "editor.objectpicker.rectangle": "矩形",
     "editor.objectpicker.text": "文字",
